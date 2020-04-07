@@ -14,29 +14,55 @@ public class MyKeyListener extends KeyAdapter {
         this.frame=f;
     }
 
+    /**
+     * 方向标记
+     */
+    Boolean BL=false;
+    Boolean BU=false;
+    Boolean BR=false;
+    Boolean BD=false;
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.printf("按下了"+e.getExtendedKeyCode()+"code:"+e.getKeyCode());
-        if(e.getKeyCode()==37){
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){
             System.out.printf("往左走");
-            frame.x-=20;
+            BL=true;
         }
-        if(e.getKeyCode()==38){
-            frame.y+=20;
+        if(e.getKeyCode()==KeyEvent.VK_UP){
+            BU=true;
             System.out.println("往上走");
         }
-        if(e.getKeyCode()==39){
-            frame.x+=20;
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+
+            BR=true;
             System.out.println("往右走");
         }
-        if(e.getKeyCode()==40){
-            frame.x-=20;
+        if(e.getKeyCode()==KeyEvent.VK_DOWN){
+            BD=true;
+
             System.out.println("往下走");
         }
+        frame.repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        super.keyReleased(e);
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){
+            System.out.printf("往左走");
+            BL=false;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_UP){
+            BU=false;
+            System.out.println("往上走");
+        }
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+
+            BR=false;
+            System.out.println("往右走");
+        }
+        if(e.getKeyCode()==KeyEvent.VK_DOWN){
+            BD=false;
+
+            System.out.println("往下走");
+        }
     }
 }

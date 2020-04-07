@@ -27,7 +27,5 @@ public class TankFrame extends Frame {
     public void paint(Graphics g){
         System.out.print("graphics 画笔");
         g.fillRect(x,y,50,50);
-        x+=10;
-        y+=10;
     }
 }
