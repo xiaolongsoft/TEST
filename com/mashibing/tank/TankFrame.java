@@ -13,7 +13,7 @@ public class TankFrame extends Frame {
         setResizable(false);
         setTitle("tank war");
         setSize(800,600);
-        addKeyListener(new MyKeyListener());
+        addKeyListener(new MyKeyListener(this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
