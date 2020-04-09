@@ -8,10 +8,10 @@ public class MyKeyListener extends KeyAdapter {
     public MyKeyListener() {
         super();
     }
-    private TankFrame frame;
+    private Tank tank;
 
-    public  MyKeyListener(TankFrame f) {
-        this.frame=f;
+    public  MyKeyListener(Tank tank) {
+        this.tank=tank;
     }
 
     /**
@@ -21,27 +21,31 @@ public class MyKeyListener extends KeyAdapter {
     Boolean BU=false;
     Boolean BR=false;
     Boolean BD=false;
+    Dir dir=Dir.DOWN;
     @Override
     public void keyPressed(KeyEvent e) {
+        tank.moving=true;
         if(e.getKeyCode()==KeyEvent.VK_LEFT){
             System.out.printf("往左走");
             BL=true;
+            dir=Dir.LEFT;
         }
         if(e.getKeyCode()==KeyEvent.VK_UP){
             BU=true;
+            dir=Dir.UP;
             System.out.println("往上走");
         }
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-
             BR=true;
+            dir=Dir.RIGHT;
             System.out.println("往右走");
         }
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
             BD=true;
-
+            dir=Dir.DOWN;
             System.out.println("往下走");
         }
-        frame.repaint();
+        tank.setDir(dir);
     }
 
     @Override
@@ -63,6 +67,11 @@ public class MyKeyListener extends KeyAdapter {
             BD=false;
 
             System.out.println("往下走");
+        }
+
+        if(BD==false&&BR==false&BU==false&&BL==false){
+            tank.moving=false;
+            System.out.println(tank.getName()+"停车");
         }
     }
 }
