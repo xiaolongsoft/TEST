@@ -1,6 +1,11 @@
 package com.mashibing.tank;
 
 import java.awt.*;
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedTransferQueue;
 
 public class Tank {
     //坦克行驶速度
@@ -13,6 +18,14 @@ public class Tank {
     private int y=200;
 
     private String name;
+
+    private int bullet_num=6;
+
+    private Graphics graphics;
+
+    private Queue<Bullet> bulletQueue=new ArrayDeque<>(bullet_num);
+
+
     /**
      * 行驶状态
      */
@@ -21,26 +34,39 @@ public class Tank {
     /**
      * 移动
      */
-    public void move(Graphics g){
+    public void move(){
         if(moving) {
             switch (dir) {
                 case LEFT:
                     x -= speed;
+                    if(x<0){
+                        x=0;
+                    }
                     break;
                 case UP:
                     y -= speed;
+                    if(y<0){
+                        y=0;
+                    }
                     break;
                 case RIGHT:
                     x += speed;
+                    if(x>750){
+                        x=750;
+                    }
                     break;
                 case DOWN:
                     y += speed;
+                    if(y>750){
+                        y=750;
+                    }
                     break;
                 default:
                     break;
             }
         }
-            g.fillRect(x,y,50,50);
+        System.out.println("x:"+x+"y:"+y);
+            this.graphics.fillRect(x,y,50,50);
 
     }
 
@@ -48,6 +74,13 @@ public class Tank {
      * 攻击
      */
     public void attack(){
+        Iterator<Bullet> iterator = bulletQueue.iterator();
+        while (iterator.hasNext()){
+            Bullet bullet = iterator.next();
+            if(bullet!=null&&bullet_num>0){
+                bullet.move(graphics);
+            }
+        }
 
     }
 
@@ -96,5 +129,29 @@ public class Tank {
     }
 
     public Tank() {
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
+    }
+
+    public void setGraphics(Graphics graphics) {
+        this.graphics = graphics;
+    }
+
+    public int getBullet_num() {
+        return bullet_num;
+    }
+
+    public void setBullet_num(int bullet_num) {
+        this.bullet_num = bullet_num;
+    }
+
+    public Queue<Bullet> getBulletQueue() {
+        return bulletQueue;
+    }
+
+    public void setBulletQueue(Queue<Bullet> bulletQueue) {
+        this.bulletQueue = bulletQueue;
     }
 }

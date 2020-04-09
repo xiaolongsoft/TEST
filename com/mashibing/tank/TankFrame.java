@@ -7,12 +7,19 @@ import java.awt.event.WindowListener;
 
 public class TankFrame extends Frame {
 
+    public static final int  WIDTH=800;
+    public static final int  HEIGHT=800;
     Tank tank=new Tank("龙神号");
+
     public TankFrame() throws HeadlessException {
         this.setVisible(true);
         setResizable(false);
         setTitle("tank war");
-        setSize(800,600);
+        setSize(WIDTH,HEIGHT);
+
+
+
+
         addKeyListener(new MyKeyListener(tank));
         addWindowListener(new WindowAdapter() {
             @Override
@@ -21,10 +28,13 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+
     }
 
     @Override
     public void paint(Graphics g){
-        tank.move(g);
+        tank.setGraphics(g);
+        tank.move();
+        tank.attack();
     }
 }
